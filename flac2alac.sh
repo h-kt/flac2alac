@@ -66,8 +66,10 @@ function parse_args {
     local ARGC=$(( $# - 1 ));
     local ARGV=("$@");
 
-    local -n INDIR=$1
-    local -n OUTDIR=$2
+    local -n INDIR="$1";
+    local -n OUTDIR="$2";
+
+    [ $ARGC -le 1 ] && exit 1;
 
     for i in $(seq 2 "${ARGC}"); do
         if [ "${ARGV[$i]}" = "-h" ] || [ "${ARGV[$i]}" = "--help" ]; then
@@ -78,6 +80,8 @@ function parse_args {
         elif [ "${ARGV[$i]}" = "-o" ] || [ "${ARGV[$i]}" = "--outdir" ]; then
             OUTDIR="${ARGV[$(( i + 1 ))]}";
             test -d "${OUTDIR}" || mkdir -p "${OUTDIR}";
+        else
+            exit 1;
         fi
     done
 }
