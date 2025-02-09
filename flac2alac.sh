@@ -80,8 +80,6 @@ function parse_args {
         elif [ "${ARGV[$i]}" = "-o" ] || [ "${ARGV[$i]}" = "--outdir" ]; then
             OUTDIR="${ARGV[$(( i + 1 ))]}";
             test -d "${OUTDIR}" || mkdir -p "${OUTDIR}";
-        else
-            exit 1;
         fi
     done
 }
